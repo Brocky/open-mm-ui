@@ -3,7 +3,7 @@ TARGET = MainUI
 CC 	= $(CROSS_COMPILE)g++
 
 CFLAGS = -O3 -marm -mtune=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=hard -march=armv7ve -Wall -std=c++17
-LDFLAGS = -lSDL -lSDL_ttf -lmi_sys -lmi_gfx -s -lSDL -lSDL_image
+LDFLAGS = -lstdc++fs -lSDL -lSDL_ttf -lmi_sys -lmi_gfx -s -lSDL -lSDL_image
 
 SUBDIR = system theme view
 SOURCES = src
