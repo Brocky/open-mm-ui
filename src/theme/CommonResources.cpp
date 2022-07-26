@@ -5,6 +5,8 @@ CommonResources *CommonResources::load(std::string path)
     CommonResources *self = new CommonResources;
 
     self->background = self->loadRotatedBackground(path);
+    self->header = IMG_Load((path + "skin/bg-title.png").c_str());
+    self->footer = IMG_Load((path + "skin/tips-bar-bg.png").c_str());
 
     return self;
 }
@@ -12,6 +14,16 @@ CommonResources *CommonResources::load(std::string path)
 SDL_Surface *CommonResources::getBackground()
 {
     return this->background;
+}
+
+SDL_Surface *CommonResources::getHeader()
+{
+    return this->header;
+}
+
+SDL_Surface *CommonResources::getFooter()
+{
+    return this->footer;
 }
 
 CommonResources::~CommonResources()

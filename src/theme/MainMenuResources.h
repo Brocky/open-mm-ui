@@ -17,12 +17,14 @@ class MainMenuRessources
 private:
     MainMenuRessources() {};
     MainMenuIcon icons[6];
-    void verifyIcons();
+    MainMenuIcon dot;
+    void verifyResources();
     
 public:
     static MainMenuRessources *load(std::string path);
     ~MainMenuRessources();
     MainMenuIcon *getIcon(int item);
+    MainMenuIcon *getDot();
 };
 
 #endif

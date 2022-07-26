@@ -36,18 +36,31 @@ MainMenuRessources *MainMenuRessources::load(std::string path)
         IMG_Load((path + "skin/ic-setting-n.png").c_str())
     };
 
-    self->verifyIcons();
+    self->dot = {
+        IMG_Load((path + "skin/dot-a.png").c_str()),
+        IMG_Load((path + "skin/dot-n.png").c_str())
+    };
+
+    self->verifyResources();
 
     return self;
 }
 
-void MainMenuRessources::verifyIcons()
+void MainMenuRessources::verifyResources()
 {
     for(MainMenuIcon &icon : this->icons) {
         if (!icon.active || !icon.inactive) {
             throw ICON_LOADING_FAILED;
         }
     }
+    if (!this->dot.active || !this->dot.inactive) {
+        throw DOT_LOADING_FAILED;
+    }
+}
+
+MainMenuIcon *MainMenuRessources::getDot()
+{
+    return &this->dot;
 }
 
 MainMenuIcon *MainMenuRessources::getIcon(int item)

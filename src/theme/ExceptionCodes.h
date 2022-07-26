@@ -2,5 +2,6 @@
 #define INC_THEME_EXCEPTION_CODES
 
 const int ICON_LOADING_FAILED = 1001;
+const int DOT_LOADING_FAILED = 1002;
 
 #endif

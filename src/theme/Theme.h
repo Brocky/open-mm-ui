@@ -29,6 +29,8 @@ private:
     MainMenuRessources *main_menu_resources;
     CommonResources *common_resources;
     void drawBackground(SDL_Surface *screen);
+    void drawFrame(SDL_Surface *screen);
+    CommonResources *getCommonRessources();
 
 public:
     Theme(std::string path);
