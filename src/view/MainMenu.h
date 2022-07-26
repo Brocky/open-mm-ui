@@ -31,7 +31,7 @@ public:
     void onUp() {};
     void onDown() {};
     void onAccept() {};
-    void onCancel() {};
+    void onCancel(ApplicationInterface *app);
     void activate();
     void deactivate();
     MenuItem getFirstDisplayedItem();

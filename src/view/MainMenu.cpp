@@ -51,6 +51,11 @@ MenuItem MainMenu::getFirstDisplayedItem()
     return this->first_item;
 }
 
+void MainMenu::onCancel(ApplicationInterface *app)
+{
+    app->stop();
+}
+
 MainMenu::~MainMenu()
 {
     this->deactivate();

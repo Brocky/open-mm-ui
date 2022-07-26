@@ -4,6 +4,7 @@
 #include <vector>
 #include "ViewInterface.h"
 #include "../theme/Theme.h"
+#include "../ApplicationInterface.h"
 
 class EmuGrid: public ViewInterface
 {
@@ -20,6 +21,8 @@ public:
     void onLeft() {};
     void onUp() {};
     void onDown() {};
+    void onAccept() {};
+    void onCancel(ApplicationInterface *app) {};
     void activate() {};
     void deactivate() {};
 };
