@@ -40,10 +40,11 @@ void Theme::drawMainMenu(SDL_Surface *screen, int active_item, int first_item)
     }
 
     // draw dots giving menu overview
-    SDL_Rect dot_rect = {276, 388, 10, 10};
+    offset_left = 276;
+    SDL_Rect dot_rect = {0, 388, 10, 10};
     MainMenuIcon *dot = this->main_menu_resources->getDot();
     for (int i = 0; i < 6; i++) {
-        dot_rect.x += 14 * i;
+        dot_rect.x = offset_left + i * 14;
         SDL_Surface *img;
         if (i == active_item) {
             img = dot->active;
