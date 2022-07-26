@@ -38,6 +38,7 @@ public:
     void drawMainMenu(SDL_Surface *screen, int active_item, int first_item);
     void drawList(SDL_Surface *screen, std::string title, std::string items[], int active_item);
     void drawGrid(SDL_Surface *screen, GridItem items[], int active_item);
+    void freeMainMenuResources();
 };
 
 #endif

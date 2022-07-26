@@ -81,3 +81,12 @@ CommonResources *Theme::getCommonRessources()
     }
     return this->common_resources;
 }
+
+void Theme::freeMainMenuResources()
+{
+    if (!this->main_menu_resources) {
+        return;
+    }
+    delete this->main_menu_resources;
+    this->main_menu_resources = NULL;
+}

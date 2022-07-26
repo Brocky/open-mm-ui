@@ -4,8 +4,6 @@ MainMenu::MainMenu(SDL_Surface *screen, Theme *theme)
 {
     this->screen = screen;
     this->theme = theme;
-
-    this->theme->drawMainMenu(this->screen, this->current_item, this->first_item);
 }
 
 void MainMenu::onRight()
@@ -36,7 +34,24 @@ void MainMenu::onLeft()
     }
 }
 
+void MainMenu::activate()
+{
+    this->active = true;
+    this->theme->drawMainMenu(this->screen, this->current_item, this->first_item);
+}
+
+void MainMenu::deactivate()
+{
+    this->active = false;
+    this->theme->freeMainMenuResources();
+}
+
 MenuItem MainMenu::getFirstDisplayedItem()
 {
     return this->first_item;
+}
+
+MainMenu::~MainMenu()
+{
+    this->deactivate();
 }
