@@ -30,7 +30,7 @@ private:
     std::vector<std::string> jsonvalue;
 public:
     static JSONKeys JsonValue;
-    static const char filepath[];
+    static std::string filepath;
 
     static SystemJSON *load();
     ~SystemJSON() {};

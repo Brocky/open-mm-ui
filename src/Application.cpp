@@ -41,16 +41,22 @@ void Application::updateScreen()
 int Application::run()
 {
     this->initScreen();
+    std::cout << "Screen initialized" << std::endl;
 
     try {
         SystemJSON *system_config = SystemJSON::load();
+        std::cout << "Loaded system.json" << std::endl;
+        std::cout << "Themepath is " << system_config->getThemePath() << std::endl;
         Theme current_theme(system_config->getThemePath());
+        std::cout << "Intitialized theme" << std::endl;
         
         this->current_view = new MainMenu(screen, &current_theme);
+        std::cout << "Intitialized main menu view" << std::endl;
         this->current_view->activate();
+        std::cout << "Activated main menu view" << std::endl;
         this->updateScreen();
+        std::cout << "Redrew screen" << std::endl;
 
-        
         struct input_event ev;
         int input = open("/dev/input/event0", O_RDONLY);
 

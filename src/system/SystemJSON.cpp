@@ -20,7 +20,7 @@ std::vector<std::string> jsonkeyname = {
     "\"audiofix\""
 };
 
-const char SystemJSON::filepath[] = "/appconfigs/system.json";
+std::string SystemJSON::filepath = "/appconfigs/system.json";
 
 SystemJSON *SystemJSON::load() {
     SystemJSON *self = new SystemJSON;

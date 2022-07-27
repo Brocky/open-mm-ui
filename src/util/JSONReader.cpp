@@ -1,6 +1,7 @@
 #include <vector>
 #include <string>
 #include <cstring>
+#include <iostream>
 #include "JSONReader.h"
 #include "ExceptionCodes.h"
 
@@ -56,9 +57,10 @@ std::vector<std::string> readPlainJSON(std::string path, std::vector<std::string
     char val[256];
     char *keyptr, *valptr;
     int f;
-    std::vector<std::string> values;
+    std::vector<std::string> values(keys.size(), "");
 
     if ((fp = fopen(path.c_str(), "r"))) {
+        std::cout << "Opened JSON file" << std::endl;
         key[0] = 0;
         val[0] = 0;
 
@@ -75,8 +77,11 @@ std::vector<std::string> readPlainJSON(std::string path, std::vector<std::string
             // if val is empty after trim, set empty
             if (!(valptr = trimstr(val, 1))) { val[0] = 0; valptr = val; }
             // look for key index and copy value once found
-            for(std::size_t i = 0; i < keys.size(); ++i) {
-                if (keys.at(i).compare(std::string(keyptr))) {
+            std::cout << "Found pair, key is " << keyptr << std::endl;
+            for(std::size_t i = 0; i < keys.size(); i++) {
+                if (keys.at(i).compare(std::string(keyptr)) == 0) {
+                    std::cout << "index is " << i << std::endl;
+                    std::cout << "value is " << valptr << std::endl;
                     values.at(i) = std::string(valptr);
                     break;
                 }
