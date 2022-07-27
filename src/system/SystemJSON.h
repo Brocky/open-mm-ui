@@ -1,11 +1,9 @@
 #ifndef INC_SYSTEM_JSON
 #define INC_SYSTEM_JSON
 
+#include <vector>
 #include <string>
-
-#define JSONKEYSIZE	16
-#define JSONDEFSIZE	20
-#define JSONSTRSIZE	128
+#include "../util/JSONReader.h"
 
 enum JSONKeys {
     JSON_VOLUME,		// vol
@@ -29,7 +27,7 @@ class SystemJSON
 {
 private:
     SystemJSON() {};
-    char jsonvalue[JSONKeys::JSON_VALUE_MAX][JSONSTRSIZE];
+    std::vector<std::string> jsonvalue;
 public:
     static JSONKeys JsonValue;
     static const char filepath[];

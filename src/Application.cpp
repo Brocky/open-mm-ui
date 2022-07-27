@@ -7,7 +7,7 @@
 #include "view/MainMenu.h"
 #include "theme/Theme.h"
 #include "theme/ExceptionCodes.h"
-#include "system/ExceptionCodes.h"
+#include "util/ExceptionCodes.h"
 #include "Application.h"
 
 #define	BUTTON_A	KEY_SPACE
@@ -91,8 +91,8 @@ int Application::run()
                 std::cerr << "could not load one or more main menu items from theme" << std::endl;
                 break;
             
-            case COULD_NOT_READ_SYSTEMJSON:
-                std::cerr << "could not open system.json for reading" << std::endl;
+            case COULD_NOT_READ_JSON:
+                std::cerr << "could not open a json file for reading" << std::endl;
                 break;
 
             default:

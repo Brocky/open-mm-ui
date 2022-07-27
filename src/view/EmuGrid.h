@@ -4,13 +4,14 @@
 #include <vector>
 #include "ViewInterface.h"
 #include "../theme/Theme.h"
+#include "../emu/Emu.h"
 #include "../ApplicationInterface.h"
 
 class EmuGrid: public ViewInterface
 {
 private:
-    static std::string getIconPath(std::string name);
-    std::vector<GridItem> items;
+    std::vector<Emu*> items;
+    short unsigned int current_item;
     SDL_Surface *screen;
     Theme *theme;
     void buildIndex();
