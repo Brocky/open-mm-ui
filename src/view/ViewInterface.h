@@ -10,7 +10,7 @@ public:
     virtual void onLeft() = 0;
     virtual void onUp() = 0;
     virtual void onDown() = 0;
-    virtual void onAccept() = 0;
+    virtual void onAccept(ApplicationInterface *app) = 0;
     virtual void onCancel(ApplicationInterface *app) = 0;
     virtual void activate() = 0;
     virtual void deactivate() = 0;

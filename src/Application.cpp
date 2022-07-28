@@ -5,6 +5,7 @@
 #include "sys/ioctl.h"
 #include "system/SystemJSON.h"
 #include "view/MainMenu.h"
+#include "view/EmuGrid.h"
 #include "theme/Theme.h"
 #include "theme/ExceptionCodes.h"
 #include "util/ExceptionCodes.h"
@@ -38,6 +39,14 @@ void Application::updateScreen()
     SDL_Flip(this->video);
 }
 
+void Application::switchView(ViewInterface *view)
+{
+    this->current_view->deactivate();
+    view->activate();
+    this->current_view = view;
+    this->updateScreen();
+}
+
 int Application::run()
 {
     this->initScreen();
@@ -47,10 +56,10 @@ int Application::run()
         SystemJSON *system_config = SystemJSON::load();
         std::cout << "Loaded system.json" << std::endl;
         std::cout << "Themepath is " << system_config->getThemePath() << std::endl;
-        Theme current_theme(system_config->getThemePath());
+        this->theme = new Theme(system_config->getThemePath());
         std::cout << "Intitialized theme" << std::endl;
         
-        this->current_view = new MainMenu(screen, &current_theme);
+        this->current_view = new MainMenu(this->screen, this->theme);
         std::cout << "Intitialized main menu view" << std::endl;
         this->current_view->activate();
         std::cout << "Activated main menu view" << std::endl;
@@ -85,6 +94,10 @@ int Application::run()
                 this->current_view->onCancel(this);
                 break;
             
+            case BUTTON_A:
+                this->current_view->onAccept(this);
+                break;
+            
             default:
                 break;
             }
@@ -110,4 +123,23 @@ int Application::run()
 
     // we should never end up here, but it makes the compiler happy
     return 1;
+}
+
+ViewInterface *Application::getView(View view)
+{
+    switch (view)
+    {
+        case View::MAIN_MENU:
+            if (!this->views[view]) {
+                this->views[view] = new MainMenu(this->screen, this->theme);
+            }
+            break;
+        case View::EMU:
+            if (!this->views[view]) {
+                this->views[view] = new EmuGrid(this->screen, this->theme);
+            }
+            break;
+    }
+
+    return this->views[view];
 }

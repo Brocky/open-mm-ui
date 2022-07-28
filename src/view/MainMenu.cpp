@@ -56,6 +56,15 @@ void MainMenu::onCancel(ApplicationInterface *app)
     app->stop();
 }
 
+void MainMenu::onAccept(ApplicationInterface *app)
+{
+    switch (this->current_item) {
+        case MenuItem::GAMES:
+            app->switchView(app->getView(View::EMU));
+            break;
+    }
+}
+
 MainMenu::~MainMenu()
 {
     this->deactivate();

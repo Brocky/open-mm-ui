@@ -4,10 +4,13 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
+#include <vector>
 #include <string>
 #include <optional>
+#include "GridItem.h"
 #include "MainMenuResources.h"
 #include "CommonResources.h"
+#include "GridResources.h"
 
 struct FontStyle
 {
@@ -16,18 +19,14 @@ struct FontStyle
     SDL_Color color;
 };
 
-struct GridItem
-{
-    std::string icon_path;
-    std::string title;
-};
-
 class Theme
 {
 private:
     std::string path;
     MainMenuRessources *main_menu_resources;
     CommonResources *common_resources;
+    GridResources *grid_resources;
+    
     void drawBackground(SDL_Surface *screen);
     void drawFrame(SDL_Surface *screen);
     CommonResources *getCommonRessources();
@@ -37,8 +36,9 @@ public:
     ~Theme() {};
     void drawMainMenu(SDL_Surface *screen, int active_item, int first_item);
     void drawList(SDL_Surface *screen, std::string title, std::string items[], int active_item);
-    void drawGrid(SDL_Surface *screen, GridItem items[], int active_item);
+    void drawGrid(SDL_Surface *screen, std::vector<GridItem> items, int active_item);
     void freeMainMenuResources();
+    void freeGridResources();
 };
 
 #endif

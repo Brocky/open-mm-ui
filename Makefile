@@ -1,6 +1,6 @@
 TARGET = MainUI
 
-CC 	= $(CROSS_COMPILE)g++
+CC 	= /opt/miyoomini-toolchain/usr/bin/arm-linux-gnueabihf-g++
 
 CFLAGS = -O3 -marm -mtune=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=hard -march=armv7ve -Wall -std=c++17
 LDFLAGS = -lstdc++fs -lSDL -lSDL_ttf -lmi_sys -lmi_gfx -s -lSDL -lSDL_image

@@ -30,7 +30,7 @@ public:
     void onLeft();
     void onUp() {};
     void onDown() {};
-    void onAccept() {};
+    void onAccept(ApplicationInterface *app);
     void onCancel(ApplicationInterface *app);
     void activate();
     void deactivate();

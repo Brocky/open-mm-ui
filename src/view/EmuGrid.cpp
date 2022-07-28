@@ -12,11 +12,57 @@ void EmuGrid::buildIndex()
             continue;
         }
         std::string conf_path = entry.path().string() + "config.json";
-        this->items.push_back(new Emu(conf_path));
+        Emu *emu = new Emu(conf_path);
+        this->items.push_back(emu);
+        this->gird_items.push_back(emu->toGridItem());
     }
+}
+
+EmuGrid::EmuGrid(SDL_Surface *screen, Theme *theme)
+{
+    this->screen = screen;
+    this->theme = theme;
+    this->buildIndex();
 }
 
 EmuGrid::~EmuGrid()
 {
     this->items.clear();
+}
+
+void EmuGrid::activate()
+{
+    this->active = true;
+    this->theme->drawGrid(this->screen, this->gird_items, this->current_item);
+}
+
+void EmuGrid::deactivate()
+{
+    this->active = false;
+    this->theme->freeGridResources();
+}
+
+void EmuGrid::onRight()
+{
+
+}
+
+void EmuGrid::onLeft()
+{
+    
+}
+
+void EmuGrid::onUp()
+{
+    
+}
+
+void EmuGrid::onDown()
+{
+    
+}
+
+void EmuGrid::onCancel(ApplicationInterface *app)
+{
+    app->switchView(app->getView(View::MAIN_MENU));
 }

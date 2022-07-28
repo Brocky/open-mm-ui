@@ -1,3 +1,4 @@
+#include <math.h>
 #include "Theme.h"
 
 #define ICON_HEIGHT 156
@@ -28,15 +29,11 @@ void Theme::drawMainMenu(SDL_Surface *screen, int active_item, int first_item)
         int current_item = first_item + i;
         MainMenuIcon *icon = this->main_menu_resources->getIcon(current_item);
         
-        SDL_Surface *icon_img;
         if (active_item == current_item) {
-            icon_img = icon->active;
+            SDL_BlitSurface(icon->active, NULL, screen, &icon_rect);
         } else {
-            icon_img = icon->inactive;
+            SDL_BlitSurface(icon->inactive, NULL, screen, &icon_rect);
         }
-
-        // Render to screen
-        SDL_BlitSurface(icon_img, NULL, screen, &icon_rect);
     }
 
     // draw dots giving menu overview
@@ -45,17 +42,58 @@ void Theme::drawMainMenu(SDL_Surface *screen, int active_item, int first_item)
     MainMenuIcon *dot = this->main_menu_resources->getDot();
     for (int i = 0; i < 6; i++) {
         dot_rect.x = offset_left + i * 14;
-        SDL_Surface *img;
         if (i == active_item) {
-            img = dot->active;
+            SDL_BlitSurface(dot->active, NULL, screen, &dot_rect);
         } else {
-            img = dot->inactive;
+            SDL_BlitSurface(dot->inactive, NULL, screen, &dot_rect);
         }
-
-        SDL_BlitSurface(img, NULL, screen, &dot_rect);
     }
 
     this->drawFrame(screen);
+}
+
+void Theme::drawGrid(SDL_Surface *screen, std::vector<GridItem> items, int active_item)
+{
+    // calculate number of pages and current page
+    unsigned int total_pages = ceil(items.size() / 8.0f);
+    unsigned int current_page = active_item / 8;
+
+    this->drawBackground(screen);
+
+    if (!this->grid_resources) {
+        this->grid_resources = GridResources::load(this->path, items);
+    }
+
+    // prepare layout
+    int offset_top  = 60;
+    int offset_left = 10;
+    int row_spacing = 1;
+    int col_spacing = 1;
+
+    SDL_Rect cell_rect = {0, 0, 154, 170};
+    SDL_Rect icon_rect = {0, 0, 120, 130};
+
+    // render tiles
+    for(int i = 0; i < 8; i++) {
+
+        int item_index = current_page * 8 + i;
+        int row = i / 4;
+        int col = i - row * 4;
+
+        // position and render background
+        cell_rect.x = offset_left + col * cell_rect.w + row_spacing;
+        cell_rect.y = offset_top + row * cell_rect.h + col_spacing; 
+        if (item_index == active_item) {
+            SDL_BlitSurface(this->grid_resources->getActiveTile(), NULL, screen, &cell_rect);
+        } else {
+            SDL_BlitSurface(this->grid_resources->getInactiveTile(), NULL, screen, &cell_rect);
+        }
+
+        // position and render icon
+        icon_rect.x = cell_rect.x + 17;
+        icon_rect.y = cell_rect.y;
+        SDL_BlitSurface(this->grid_resources->getIcon(item_index), NULL, screen, &icon_rect);
+    }
 }
 
 void Theme::drawBackground(SDL_Surface *screen)
@@ -80,6 +118,15 @@ CommonResources *Theme::getCommonRessources()
         this->common_resources = CommonResources::load(this->path);
     }
     return this->common_resources;
+}
+
+void Theme::freeGridResources()
+{
+    if (!this->grid_resources) {
+        return;
+    }
+    delete this->grid_resources;
+    this->grid_resources = NULL;
 }
 
 void Theme::freeMainMenuResources()

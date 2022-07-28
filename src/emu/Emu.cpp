@@ -1,20 +1,16 @@
 #include "Emu.h"
 
 std::vector<std::string> config_keys = {
-	"\"vol\"",
-    "\"keymap\"",
-    "\"mute\"",
-    "\"bgmvol\"",
-    "\"brightness\"",
-    "\"language\"",
-    "\"hibernate\"",
-	"\"lumination\"",
-    "\"hue\"",
-    "\"saturation\"",
-    "\"contrast\"",
-    "\"theme\"",
-    "\"fontsize\"",
-    "\"audiofix\""
+	"\"label\"",
+    "\"icon\"",
+    "\"iconsel\"",
+    "\"launch\"",
+    "\"rompath\"",
+    "\"imgpath\"",
+    "\"useswap\"",
+	"\"shortname\"",
+    "\"hidebios\"",
+    "\"extlist\""
 };
 
 Emu::Emu(std::string config_path)

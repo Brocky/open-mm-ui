@@ -16,8 +16,7 @@ enum EmuConfigKeys {
     USE_SWAP,
     SHORT_NAME,
     HIDE_BIOS,
-    EXT_LIST,
-    num_values
+    EXT_LIST
 };
 
 class Emu
