@@ -1,8 +1,15 @@
 #include <math.h>
 #include "Theme.h"
 
-#define ICON_HEIGHT 156
-#define ICON_WIDTH 278
+#define MAIN_MENU_ICON_WIDTH 156
+#define MAIN_MENU_ICON_HEIGHT 278
+#define MAIN_MENU_ICON_OFFSET_LEFT 10
+#define MAIN_MENU_ICON_OFFSET_TOP 91
+
+#define MAIN_MENU_DOT_HEIGHT 10
+#define MAIN_MENU_DOT_WIDTH 10
+#define MAIN_MENU_DOT_OFFSET_LEFT 276
+#define MAIN_MENU_DOT_OFFSET_TOP 388
 
 Theme::Theme(std::string path)
 {
@@ -19,13 +26,16 @@ void Theme::drawMainMenu(SDL_Surface *screen, int active_item, int first_item)
         this->main_menu_resources = MainMenuRessources::load(this->path);
     }
 
-    // draw visible icons
-    short int offset_left = 10;
-    short int offset_top = 91;
+    SDL_Rect icon_rect = {
+        0,
+        MAIN_MENU_ICON_OFFSET_TOP,
+        MAIN_MENU_ICON_WIDTH,
+        MAIN_MENU_ICON_HEIGHT
+    };
 
-    SDL_Rect icon_rect = {0, offset_top, ICON_HEIGHT, ICON_WIDTH};
+    // draw visible icons
     for (int i = 0; i < 4; i++) {
-        icon_rect.x = offset_left + i * ICON_HEIGHT;
+        icon_rect.x = MAIN_MENU_ICON_OFFSET_LEFT + i * icon_rect.h;
         int current_item = first_item + i;
         MainMenuIcon *icon = this->main_menu_resources->getIcon(current_item);
         
@@ -37,11 +47,10 @@ void Theme::drawMainMenu(SDL_Surface *screen, int active_item, int first_item)
     }
 
     // draw dots giving menu overview
-    offset_left = 276;
-    SDL_Rect dot_rect = {0, 388, 10, 10};
+    SDL_Rect dot_rect = {0, MAIN_MENU_DOT_OFFSET_TOP, MAIN_MENU_DOT_WIDTH, MAIN_MENU_ICON_HEIGHT};
     MainMenuIcon *dot = this->main_menu_resources->getDot();
     for (int i = 0; i < 6; i++) {
-        dot_rect.x = offset_left + i * 14;
+        dot_rect.x = MAIN_MENU_DOT_OFFSET_LEFT + i * 14;
         if (i == active_item) {
             SDL_BlitSurface(dot->active, NULL, screen, &dot_rect);
         } else {
