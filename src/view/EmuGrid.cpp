@@ -11,7 +11,7 @@ void EmuGrid::buildIndex()
         if (!entry.is_directory()) {
             continue;
         }
-        std::string conf_path = entry.path().string() + "config.json";
+        std::string conf_path = entry.path().string() + "/config.json";
         Emu *emu = new Emu(conf_path);
         this->items.push_back(emu);
         this->gird_items.push_back(emu->toGridItem());

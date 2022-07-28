@@ -14,8 +14,8 @@ private:
     std::vector<Emu*> items;
     std::vector<GridItem> gird_items;
     short unsigned int current_item;
-    SDL_Surface *screen;
-    Theme *theme;
+    SDL_Surface *screen = nullptr;
+    Theme *theme = nullptr;
     bool active = false;
     void buildIndex();
 public:

@@ -10,8 +10,8 @@
 class GridResources
 {
 private:
-    SDL_Surface *active_tile;
-    SDL_Surface *inactive_tile;
+    SDL_Surface *active_tile = nullptr;
+    SDL_Surface *inactive_tile = nullptr;
     std::vector<SDL_Surface*> icons;
     GridResources() {};
 public:

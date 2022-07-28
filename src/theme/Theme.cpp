@@ -1,4 +1,5 @@
 #include <math.h>
+#include <iostream>
 #include "Theme.h"
 
 #define MAIN_MENU_ICON_WIDTH 156
@@ -19,11 +20,14 @@ Theme::Theme(std::string path)
 
 void Theme::drawMainMenu(SDL_Surface *screen, int active_item, int first_item)
 {
+    std::cout << "Theme: starting to draw main menu" << std::endl;
     this->drawBackground(screen);
+    std::cout << "Theme: drew background" << std::endl;
 
     // Load menue resources if not already present
     if (! this->main_menu_resources) {
         this->main_menu_resources = MainMenuRessources::load(this->path);
+    std::cout << "Theme: loaded menu resources" << std::endl;
     }
 
     SDL_Rect icon_rect = {
@@ -35,7 +39,7 @@ void Theme::drawMainMenu(SDL_Surface *screen, int active_item, int first_item)
 
     // draw visible icons
     for (int i = 0; i < 4; i++) {
-        icon_rect.x = MAIN_MENU_ICON_OFFSET_LEFT + i * icon_rect.h;
+        icon_rect.x = MAIN_MENU_ICON_OFFSET_LEFT + i * icon_rect.w;
         int current_item = first_item + i;
         MainMenuIcon *icon = this->main_menu_resources->getIcon(current_item);
         
@@ -44,10 +48,11 @@ void Theme::drawMainMenu(SDL_Surface *screen, int active_item, int first_item)
         } else {
             SDL_BlitSurface(icon->inactive, NULL, screen, &icon_rect);
         }
+        std::cout << "Theme: drew icon " << current_item << std::endl;
     }
 
     // draw dots giving menu overview
-    SDL_Rect dot_rect = {0, MAIN_MENU_DOT_OFFSET_TOP, MAIN_MENU_DOT_WIDTH, MAIN_MENU_ICON_HEIGHT};
+    SDL_Rect dot_rect = {0, MAIN_MENU_DOT_OFFSET_TOP, MAIN_MENU_DOT_WIDTH, MAIN_MENU_DOT_HEIGHT};
     MainMenuIcon *dot = this->main_menu_resources->getDot();
     for (int i = 0; i < 6; i++) {
         dot_rect.x = MAIN_MENU_DOT_OFFSET_LEFT + i * 14;
@@ -57,6 +62,7 @@ void Theme::drawMainMenu(SDL_Surface *screen, int active_item, int first_item)
             SDL_BlitSurface(dot->inactive, NULL, screen, &dot_rect);
         }
     }
+    std::cout << "Theme: drew dots "<< std::endl;
 
     this->drawFrame(screen);
 }
@@ -117,14 +123,17 @@ void Theme::drawFrame(SDL_Surface *screen)
     SDL_Rect rect_bottom = {0,420,640,60};
     
     SDL_BlitSurface(this->getCommonRessources()->getHeader(), NULL, screen, &rect_top);
+    std::cout << "Theme: drew top bar "<< std::endl;
     SDL_BlitSurface(this->getCommonRessources()->getFooter(), NULL, screen, &rect_bottom);
+    std::cout << "Theme: drew bottom bar "<< std::endl;
 }
 
 CommonResources *Theme::getCommonRessources()
 {
     // Load common resources if not already present
-    if (! this->common_resources) {
+    if (!this->common_resources) {
         this->common_resources = CommonResources::load(this->path);
+        std::cout << "Theme: loaded common resources" << std::endl;
     }
     return this->common_resources;
 }

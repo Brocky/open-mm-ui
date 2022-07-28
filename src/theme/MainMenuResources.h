@@ -8,8 +8,8 @@
 
 struct MainMenuIcon
 {
-    SDL_Surface *active;
-    SDL_Surface *inactive;
+    SDL_Surface *active = nullptr;
+    SDL_Surface *inactive = nullptr;
 };
 
 class MainMenuRessources

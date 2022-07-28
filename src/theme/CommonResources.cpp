@@ -1,3 +1,4 @@
+#include <iostream>
 #include "CommonResources.h"
 
 CommonResources *CommonResources::load(std::string path)
@@ -5,8 +6,11 @@ CommonResources *CommonResources::load(std::string path)
     CommonResources *self = new CommonResources;
 
     self->background = self->loadRotatedBackground(path);
+    std::cout << "CommonResources: loaded rotated background" << std::endl;
     self->header = IMG_Load((path + "skin/bg-title.png").c_str());
+    std::cout << "CommonResources: title bar background" << std::endl;
     self->footer = IMG_Load((path + "skin/tips-bar-bg.png").c_str());
+    std::cout << "CommonResources: loaded bottom bar" << std::endl;
 
     return self;
 }
@@ -29,6 +33,8 @@ SDL_Surface *CommonResources::getFooter()
 CommonResources::~CommonResources()
 {
     SDL_FreeSurface(this->background);
+    SDL_FreeSurface(this->header);
+    SDL_FreeSurface(this->footer);
 }
 
 SDL_Surface *CommonResources::loadRotatedBackground(std::string path)

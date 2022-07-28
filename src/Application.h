@@ -11,9 +11,9 @@ class Application: public ApplicationInterface
 private:
     ViewInterface *views[View::MAX_VIEWS];
     ViewInterface *current_view;
-    SDL_Surface *video;
-    SDL_Surface *screen;
-    Theme *theme;
+    SDL_Surface *video = nullptr;
+    SDL_Surface *screen = nullptr;
+    Theme *theme = nullptr;
     bool is_running = false;
     void initScreen();
 public:

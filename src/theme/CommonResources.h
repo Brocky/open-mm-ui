@@ -8,9 +8,9 @@
 class CommonResources
 {
 private:
-    SDL_Surface *background;
-    SDL_Surface *header;
-    SDL_Surface *footer;
+    SDL_Surface *background = nullptr;
+    SDL_Surface *header = nullptr;
+    SDL_Surface *footer = nullptr;
     CommonResources() {};
     SDL_Surface *loadRotatedBackground(std::string path);
 public:

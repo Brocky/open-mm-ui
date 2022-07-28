@@ -23,9 +23,9 @@ class Theme
 {
 private:
     std::string path;
-    MainMenuRessources *main_menu_resources;
-    CommonResources *common_resources;
-    GridResources *grid_resources;
+    MainMenuRessources *main_menu_resources = nullptr;
+    CommonResources *common_resources = nullptr;
+    GridResources *grid_resources = nullptr;
     
     void drawBackground(SDL_Surface *screen);
     void drawFrame(SDL_Surface *screen);

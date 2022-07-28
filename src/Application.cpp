@@ -59,7 +59,7 @@ int Application::run()
         this->theme = new Theme(system_config->getThemePath());
         std::cout << "Intitialized theme" << std::endl;
         
-        this->current_view = new MainMenu(this->screen, this->theme);
+        this->current_view = this->getView(View::MAIN_MENU);
         std::cout << "Intitialized main menu view" << std::endl;
         this->current_view->activate();
         std::cout << "Activated main menu view" << std::endl;
